@@ -129,7 +129,6 @@ try:
         response_post = asyncio.run(client.post("get", data=data_to_post))
         print("POST Response:", response_post)
 
-    r = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
     # Example POST requests
     # data_to_post = {"message": "ping"}
