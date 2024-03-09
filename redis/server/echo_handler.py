@@ -1,8 +1,8 @@
 import json
-# from server import RedisHandler
-from server import  server
+from server import RedisHandler
+# from server import  server
 
-class EchoHandler(server.RedisHandler):
+class EchoHandler(RedisHandler):
 
     def post(self):
         body = self.request.body

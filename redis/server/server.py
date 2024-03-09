@@ -27,12 +27,12 @@ class RedisHandler(tornado.web.RequestHandler):
 
 
 def make_app():
-    from server.ping_handler import PingHandler
-    from server.echo_handler import EchoHandler
-    from server.redis_dict_handler import RedisDictHandler
-    # from ping_handler import PingHandler
-    # from echo_handler import EchoHandler
-    # from redis_dict_handler import RedisDictHandler
+    # from server.ping_handler import PingHandler
+    # from server.echo_handler import EchoHandler
+    # from server.redis_dict_handler import RedisDictHandler
+    from ping_handler import PingHandler
+    from echo_handler import EchoHandler
+    from redis_dict_handler import RedisDictHandler
     application =  tornado.web.Application([
         (r"/ping", PingHandler),
         (r"/echo", EchoHandler),

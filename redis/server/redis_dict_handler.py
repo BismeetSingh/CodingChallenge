@@ -1,9 +1,9 @@
-# from server import RedisHandler
+from server import RedisHandler
 import json
 
-from server import  server
+# from server import  server
 
-class RedisDictHandler(server.RedisHandler):
+class RedisDictHandler(RedisHandler):
 
     def post(self):
         body = self.request.body

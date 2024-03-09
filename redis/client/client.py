@@ -3,6 +3,7 @@ import json
 import sys
 import os
 import asyncio
+import argparse
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(current_dir)
@@ -98,22 +99,54 @@ try:
     # response_get =  asyncio.run(client.get("ping"))
     # print("GET Response:", response_get)
 
+    parser = argparse.ArgumentParser(description='A Redis Client')
+    parser.add_argument("-p",'--ping', action='store_true')
+    parser.add_argument('-e', "--echo", dest='message', action='store', help='message to echo')
+    parser.add_argument('-set', "--set", dest='setvalue', action='store', help='key to set',nargs=2)
+    parser.add_argument('-get', "--get", dest='getvalue', action='store', help='get set key')
+
+    args = parser.parse_args()
+
+    if args.message:
+        data_to_post = {"message": {'echo': args.message}}
+        response_post = asyncio.run(client.post("echo", data=data_to_post))
+        print("POST Response:", response_post)
+
+    if args.ping :
+        data_to_post = {"message": "ping"}
+        response_post = asyncio.run(client.post("ping", data=data_to_post))
+        print("POST Response:", response_post)
+
+    if args.setvalue and len(args.setvalue) == 2:
+
+        data_to_post = {"message": {'set': {args.setvalue[0]: args.setvalue[1]}}}
+        response_post = asyncio.run(client.post("set", data=data_to_post))
+        print("POST Response:", response_post)
+
+    if args.getvalue :
+
+        data_to_post = {"message": {'get': args.getvalue}}
+        response_post = asyncio.run(client.post("get", data=data_to_post))
+        print("POST Response:", response_post)
+
+    r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+
     # Example POST requests
-    data_to_post = {"message": "ping"}
-    response_post = asyncio.run(client.post("ping", data=data_to_post))
-    print("POST Response:", response_post)
-
-    data_to_post = {"message": {'echo': 'hello world'}}
-    response_post = asyncio.run(client.post("echo", data=data_to_post))
-    print("POST Response:", response_post)
-
-    data_to_post = {"message": {'set': {'name': 'bismeet'}}}
-    response_post = asyncio.run(client.post("set", data=data_to_post))
-    print("POST Response:", response_post)
-
-    data_to_post = {"message": {'get': 'name'}}
-    getKey = asyncio.run(client.post("get", data=data_to_post))
-    print("POST Response:", getKey)
+    # data_to_post = {"message": "ping"}
+    # response_post = asyncio.run(client.post("ping", data=data_to_post))
+    # print("POST Response:", response_post)
+    #
+    # data_to_post = {"message": {'echo': 'hello world'}}
+    # response_post = asyncio.run(client.post("echo", data=data_to_post))
+    # print("POST Response:", response_post)
+    #
+    # data_to_post = {"message": {'set': {'name': 'bismeet'}}}
+    # response_post = asyncio.run(client.post("set", data=data_to_post))
+    # print("POST Response:", response_post)
+    #
+    # data_to_post = {"message": {'get': 'name'}}
+    # getKey = asyncio.run(client.post("get", data=data_to_post))
+    # print("POST Response:", getKey)
 
 
 finally:

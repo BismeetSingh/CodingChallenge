@@ -1,9 +1,9 @@
 import json
-# from server import  RedisHandler
+from server import  RedisHandler
 
-from server import  server
+# from server import  server
 
-class PingHandler(server.RedisHandler):
+class PingHandler(RedisHandler):
 
     def post(self):
         body = self.request.body
