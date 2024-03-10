@@ -1,15 +1,13 @@
+
 import tornado.httpclient
 import json
 import sys
 import os
 import asyncio
-import argparse
-
+import  argparse
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(current_dir)
 sys.path.append(project_root)
-
-from parsers.resp_parser import RespParser
 
 from parsers.resp_parser import RespParser
 
@@ -85,14 +83,11 @@ class TornadoHttpClient:
 
 
 
-
-    # def pingHandler(self, data):
-    #     data['message'] = self.parser.serialize(data['message'])
-
-
 # Example usage:
 base_url = "http://localhost:6389"
 client = TornadoHttpClient(base_url)
+
+
 
 try:
     # Example GET request
@@ -110,7 +105,7 @@ try:
     if args.message:
         data_to_post = {"message": {'echo': args.message}}
         response_post = asyncio.run(client.post("echo", data=data_to_post))
-        print("POST Response:", response_post)
+        print(response_post['echo'])
 
     if args.ping :
         data_to_post = {"message": "ping"}
@@ -129,23 +124,23 @@ try:
         response_post = asyncio.run(client.post("get", data=data_to_post))
         print("POST Response:", response_post)
 
-
-    # Example POST requests
-    # data_to_post = {"message": "ping"}
-    # response_post = asyncio.run(client.post("ping", data=data_to_post))
-    # print("POST Response:", response_post)
-    #
-    # data_to_post = {"message": {'echo': 'hello world'}}
-    # response_post = asyncio.run(client.post("echo", data=data_to_post))
-    # print("POST Response:", response_post)
-    #
-    # data_to_post = {"message": {'set': {'name': 'bismeet'}}}
-    # response_post = asyncio.run(client.post("set", data=data_to_post))
-    # print("POST Response:", response_post)
-    #
-    # data_to_post = {"message": {'get': 'name'}}
-    # getKey = asyncio.run(client.post("get", data=data_to_post))
-    # print("POST Response:", getKey)
+#
+#     # Example POST requests
+#     # data_to_post = {"message": "ping"}
+#     # response_post = asyncio.run(client.post("ping", data=data_to_post))
+#     # print("POST Response:", response_post)
+#     #
+#     # data_to_post = {"message": {'echo': 'hello world'}}
+#     # response_post = asyncio.run(client.post("echo", data=data_to_post))
+#     # print("POST Response:", response_post)
+#     #
+#     # data_to_post = {"message": {'set': {'name': 'bismeet'}}}
+#     # response_post = asyncio.run(client.post("set", data=data_to_post))
+#     # print("POST Response:", response_post)
+#     #
+#     # data_to_post = {"message": {'get': 'name'}}
+#     # getKey = asyncio.run(client.post("get", data=data_to_post))
+#     # print("POST Response:", getKey)
 
 
 finally:

@@ -25,6 +25,10 @@ class RedisHandler(tornado.web.RequestHandler):
     def post(self):
         pass
 
+    # def set(self,key,value):
+    #     self.write(key)
+    #     self.write(value)
+
 
 def make_app():
     # from server.ping_handler import PingHandler
@@ -47,14 +51,6 @@ def make_app():
 def main():
     app = make_app()
     app.listen(6389)
-    parser = argparse.ArgumentParser(description='A Redis Client')
-    parser.add_argument("--PING", action='store_true')
-    parser.add_argument("--ECHO", action='store_true')
-    args = parser.parse_args()
-    if args.PING:
-        pass
-    if args.ECHO:
-        pass
     logging.getLogger().setLevel(logging.DEBUG)
     print('Server started')
     tornado.ioloop.IOLoop.current().start()
